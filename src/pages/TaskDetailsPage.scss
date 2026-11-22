@@ -1,0 +1,139 @@
+.task-page {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+
+  &__back {
+    align-self: flex-start;
+    color: #2563eb;
+    text-decoration: none;
+    font-weight: 600;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  &__card {
+    background: #ffffff;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    border-top: 4px solid #2563eb;
+  }
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 0.75rem;
+  }
+
+  &__id {
+    font-size: 0.8rem;
+    color: #6b7280;
+    font-weight: 600;
+  }
+
+  &__title {
+    font-size: 1.35rem;
+    color: #1e3a8a;
+  }
+
+  &__status {
+    white-space: nowrap;
+    padding: 0.2rem 0.7rem;
+    border-radius: 999px;
+    background: #e0e7ff;
+    color: #1d4ed8;
+    font-size: 0.8rem;
+    font-weight: 700;
+
+    &--done {
+      background: #dcfce7;
+      color: #15803d;
+    }
+  }
+
+  &__description {
+    color: #374151;
+    margin-bottom: 1rem;
+  }
+
+  &__props {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+  }
+
+  &__prop {
+    background: #f9fafb;
+    border-radius: 6px;
+    padding: 0.6rem 0.8rem;
+  }
+
+  &__prop-name {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: #6b7280;
+  }
+
+  &__prop-value {
+    font-weight: 600;
+
+    &--high {
+      color: #b91c1c;
+    }
+
+    &--medium {
+      color: #b45309;
+    }
+
+    &--low {
+      color: #15803d;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  &__btn {
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    border: 1px solid #d1d5db;
+    background: #ffffff;
+    font-weight: 600;
+    cursor: pointer;
+
+    &:disabled {
+      opacity: 0.6;
+      cursor: progress;
+    }
+
+    &--edit {
+      background: #fef3c7;
+      border-color: #fde68a;
+      color: #b45309;
+
+      &:hover {
+        background: #fde68a;
+      }
+    }
+
+    &--delete {
+      background: #fee2e2;
+      border-color: #fecaca;
+      color: #dc2626;
+
+      &:hover {
+        background: #fecaca;
+      }
+    }
+  }
+}

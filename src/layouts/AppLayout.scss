@@ -1,0 +1,28 @@
+.app-layout {
+  max-width: 860px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+
+  &__progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    width: 0;
+    background: #2563eb;
+    opacity: 0;
+    transition: width 0.4s ease, opacity 0.2s ease;
+    z-index: 2000;
+
+    &--active {
+      width: 80%;
+      opacity: 1;
+    }
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+}

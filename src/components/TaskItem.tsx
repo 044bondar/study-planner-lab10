@@ -1,56 +1,51 @@
 import { useState } from 'react';
+import { Link, useLocation } from 'react-router';
 import type { Task } from '../types/task';
 import './TaskItem.scss';
 
 interface TaskItemProps {
     task: Task;
-    onSelect: (id: number) => void;
     onToggle: (task: Task) => void;
-    onEdit: (task: Task) => void;
     onDelete: (id: number) => void;
 }
 
-export function TaskItem({ task, onSelect, onToggle, onEdit, onDelete }: TaskItemProps) {
+export function TaskItem({ task, onToggle, onDelete }: TaskItemProps) {
     const [confirmDelete, setConfirmDelete] = useState(false);
+    const location = useLocation();
 
     return (
         <article className={`task-item ${task.completed ? 'task-item--completed' : ''}`}>
             <div className="task-item__content">
-                <h3 className="task-item__title">{task.title}</h3>
+                <h3 className="task-item__title">
+                    {/* state.from — щоб «Назад до списку» зберіг фільтри */}
+                    <Link className="task-item__link" to={`/tasks/${task.id}`} state={{ from: location.search }}>
+                        {task.title}
+                    </Link>
+                </h3>
                 <p className="task-item__desc">{task.description}</p>
                 <div className="task-item__meta">
                     <span className="task-item__badge">{task.category}</span>
                     <span className={`task-item__badge task-item__badge--${task.priority}`}>
-            Пріоритет: {task.priority}
-          </span>
-                    <span className="task-item__badge">
-            {task.completed ? 'Виконано' : 'У процесі'}
-          </span>
+                        Пріоритет: {task.priority}
+                    </span>
+                    <span className="task-item__badge">{task.completed ? 'Виконано' : 'У процесі'}</span>
                 </div>
             </div>
 
-            <div className="task-item__actions" style={{ flexWrap: 'wrap', justifyContent: 'flex-end' }}>
-                <button
-                    type="button"
-                    className="task-item__btn"
-                    style={{ background: '#f3f4f6', color: '#1f2937' }}
-                    onClick={() => onSelect(task.id)}
+            <div className="task-item__actions">
+                <Link
+                    className="task-item__btn task-item__btn--details"
+                    to={`/tasks/${task.id}`}
+                    state={{ from: location.search }}
                 >
                     Деталі
-                </button>
+                </Link>
                 <button
                     type="button"
                     className="task-item__btn task-item__btn--toggle"
                     onClick={() => onToggle(task)}
                 >
                     {task.completed ? 'Повернути' : 'Виконано'}
-                </button>
-                <button
-                    type="button"
-                    className="task-item__btn task-item__btn--edit"
-                    onClick={() => onEdit(task)}
-                >
-                    Редагувати
                 </button>
 
                 {!confirmDelete ? (
@@ -66,7 +61,10 @@ export function TaskItem({ task, onSelect, onToggle, onEdit, onDelete }: TaskIte
                         <button
                             type="button"
                             className="task-item__btn task-item__btn--delete"
-                            onClick={() => onDelete(task.id)}
+                            onClick={() => {
+                                setConfirmDelete(false);
+                                onDelete(task.id);
+                            }}
                         >
                             Підтвердити?
                         </button>
