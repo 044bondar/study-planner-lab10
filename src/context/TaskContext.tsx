@@ -1,12 +1,8 @@
 import { useState, useEffect, useCallback, useMemo, type ReactNode } from 'react';
-import { useLocalStorage } from '../hooks/useLocalStorage';
 import { TaskContext, type UiContextValue } from './taskContextInstance';
-import type { FilterStatus, ToastMessage } from '../types/task';
-
-const FILTER_STORAGE_KEY = 'study-planner:filter';
+import type { ToastMessage } from '../types/task';
 
 export function TaskProvider({ children }: { children: ReactNode }) {
-    const [filter, setFilter] = useLocalStorage<FilterStatus>(FILTER_STORAGE_KEY, 'all');
     const [toast, setToast] = useState<ToastMessage | null>(null);
 
     const showToast = useCallback((text: string, type: ToastMessage['type'] = 'info') => {
@@ -22,8 +18,8 @@ export function TaskProvider({ children }: { children: ReactNode }) {
     }, [toast]);
 
     const value = useMemo<UiContextValue>(
-        () => ({ filter, setFilter, toast, showToast, dismissToast }),
-        [filter, setFilter, toast, showToast, dismissToast]
+        () => ({ toast, showToast, dismissToast }),
+        [toast, showToast, dismissToast]
     );
 
     return <TaskContext.Provider value={value}>{children}</TaskContext.Provider>;

@@ -1,7 +1,15 @@
 export type Priority = 'low' | 'medium' | 'high';
-export type FilterStatus = 'all' | 'completed' | 'active';
+export type StatusFilter = 'all' | 'completed' | 'active';
+export type PriorityFilter = 'all' | Priority;
 
-// Domain model (використовується в UI)
+/**
+ * Domain model (використовується в UI).
+ *
+ * Server-owned (DummyJSON /todos): id, title (todo), completed, userId → createdBy.
+ * Client-owned metadata (DummyJSON їх не зберігає, тому ними володіє клієнт):
+ * description, priority, category, createdAt, а також createdBy для завдань,
+ * створених у цьому застосунку. Див. repositories/clientTaskStore.ts.
+ */
 export interface Task {
     id: number;
     title: string;
@@ -9,10 +17,20 @@ export interface Task {
     completed: boolean;
     priority: Priority;
     category: string;
+    /** Автор завдання (username або "user #<id>" з DummyJSON). */
+    createdBy: string;
+    /** ISO-дата створення. CLIENT-OWNED: DummyJSON не повертає це поле. */
+    createdAt: string;
 }
 
-export type NewTaskData = Omit<Task, 'id' | 'completed'>;
-export type UpdateTaskData = Partial<Omit<Task, 'id'>>;
+/** Дані, які редагуються у TaskFormDialog. */
+export type TaskFormData = Pick<Task, 'title' | 'description' | 'category' | 'priority'>;
+export type UpdateTaskData = Partial<Pick<Task, 'title' | 'description' | 'category' | 'priority' | 'completed'>>;
+
+export interface TaskAuthor {
+    id: number;
+    username: string;
+}
 
 // API DTO (модель DummyJSON)
 export interface ApiTodo {
