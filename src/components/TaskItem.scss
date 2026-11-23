@@ -26,6 +26,16 @@
     margin-bottom: 0.25rem;
   }
 
+  &__link {
+    color: inherit;
+    text-decoration: none;
+
+    &:hover {
+      color: #2563eb;
+      text-decoration: underline;
+    }
+  }
+
   &__desc {
     font-size: 0.9rem;
     color: #4b5563;
@@ -62,6 +72,8 @@
 
   &__actions {
     display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
     gap: 0.5rem;
   }
 
@@ -72,6 +84,15 @@
     font-size: 0.85rem;
     font-weight: 600;
     cursor: pointer;
+    background: #f3f4f6;
+    color: #1f2937;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+
+    &--details:hover {
+      background: #e5e7eb;
+    }
 
     &--toggle {
       background: #e0e7ff;
